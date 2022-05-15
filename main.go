@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -16,7 +17,8 @@ func main() {
 		WriteTimeout: 30 * time.Second,
 		ReadTimeout:  30 * time.Second,
 	}
-	server.ListenAndServe()
+	err := server.ListenAndServe()
+	log.Fatal(err)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
