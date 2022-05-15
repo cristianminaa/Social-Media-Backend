@@ -1,3 +1,3 @@
-module http_server_golang
+module Social-Media-Backend
 
 go 1.18
