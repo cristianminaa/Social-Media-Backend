@@ -29,6 +29,8 @@ func main() {
 	// handling requests at the following paths:
 	mux.HandleFunc("/users", apiCfg.endpointUsersHandler)
 	mux.HandleFunc("/users/", apiCfg.endpointUsersHandler)
+	mux.HandleFunc("/posts", apiCfg.endpointPostsHandler)
+	mux.HandleFunc("/posts/", apiCfg.endpointPostsHandler)
 
 	// starting the server
 	server := http.Server{
