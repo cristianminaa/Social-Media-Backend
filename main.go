@@ -3,7 +3,6 @@ package main
 import (
 	"Social-Media-Backend/internal/database"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -12,27 +11,33 @@ import (
 
 func main() {
 	fmt.Printf("Server listening at localhost:8080\n")
+
+	// initiating the DB
+	const dbPath = "db.json"
+	dbClient := database.NewClient(dbPath)
+	err := dbClient.EnsureDB()
+	apiCfg := apiConfig{
+		dbClient: dbClient,
+	}
+
+	// creating the handlers
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", handler)
-	mux.HandleFunc("/err", errHandler)
+
+	// handling requests at the following paths:
+	mux.HandleFunc("/users", apiCfg.endpointUsersHandler)
+	mux.HandleFunc("/users/", apiCfg.endpointUsersHandler)
+
+	// starting the server
 	server := http.Server{
 		Handler:      mux,
 		Addr:         "localhost:8080",
 		WriteTimeout: 30 * time.Second,
 		ReadTimeout:  30 * time.Second,
 	}
-	err := server.ListenAndServe()
+	err = server.ListenAndServe()
+
+	// server blocks forever until an error is encountered
 	log.Fatal(err)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	respondWithJSON(w, 200, database.User{
-		Email: "test@example.com",
-	})
-}
-
-func errHandler(w http.ResponseWriter, r *http.Request) {
-	respondWithError(w, 500, errors.New("internal server error"))
 }
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
@@ -65,4 +70,8 @@ func respondWithError(w http.ResponseWriter, code int, err error) {
 
 type errorBody struct {
 	Error string `json:"error"`
+}
+
+type apiConfig struct {
+	dbClient database.Client
 }
