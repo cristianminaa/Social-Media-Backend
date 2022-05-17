@@ -16,6 +16,9 @@ func main() {
 	const dbPath = "db.json"
 	dbClient := database.NewClient(dbPath)
 	err := dbClient.EnsureDB()
+	if err != nil {
+		log.Fatal(err)
+	}
 	apiCfg := apiConfig{
 		dbClient: dbClient,
 	}
