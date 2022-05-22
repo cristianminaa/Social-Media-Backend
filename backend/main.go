@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Social-Media-Backend/internal/database"
+	"Social-Media-Backend/backend/internal/database"
 	"encoding/json"
 	"fmt"
 	"log"
