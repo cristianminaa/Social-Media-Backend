@@ -13,6 +13,9 @@ import (
 func main() {
 	fmt.Printf("Server listening at localhost:8080\n")
 
+	// creating the handlers
+	mux := http.NewServeMux()
+
 	// initiating the DB
 	const dbPath = "db.json"
 	dbClient := database.NewClient(dbPath)
@@ -23,9 +26,6 @@ func main() {
 	apiCfg := apiConfig{
 		dbClient: dbClient,
 	}
-
-	// creating the handlers
-	mux := http.NewServeMux()
 
 	// handling requests at the following paths:
 	mux.HandleFunc("/users", apiCfg.endpointUsersHandler)
@@ -48,7 +48,7 @@ func main() {
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "GET, POST, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if payload != nil {
 		response, err := json.Marshal(payload)
 		if err != nil {
