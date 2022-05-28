@@ -1,12 +1,13 @@
 package main
 
 import (
-	"Social-Media-Backend/backend/internal/database"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	"Social-Media-Backend/backend/internal/database"
 )
 
 func main() {

@@ -6,6 +6,8 @@
       "dom.iterable",
       "esnext"
     ],
+    "watch": true,
+    "outDir": "dist",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,6 +20,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "noEmitOnError": true,
     "jsx": "react-jsx"
   },
   "include": [

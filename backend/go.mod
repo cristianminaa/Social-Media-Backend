@@ -1,4 +1,4 @@
-module backend
+module Social-Media-Backend/backend
 
 go 1.18
 
